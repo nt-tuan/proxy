@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  proxy:
+    image: nginx:alpine
+    ports:
+      - 5000:5000
+      - 5001:5001
+    volumes:
+      - ./default.conf.template:/etc/nginx/templates/default.conf.template

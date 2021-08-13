@@ -1,0 +1,55 @@
+server {
+    listen 5000 default_server;
+    server_name _;
+    server_name_in_redirect off;
+    access_log  /var/log/nginx/access.log;
+    error_log  /var/log/nginx/error.log debug;
+    location /admin {
+        proxy_pass https://dev.distichain.com/admin;
+        proxy_set_header Origin https://dev.distichain.com;
+        proxy_set_header Cookie "_ga=GA1.2.719879518.1615258558; hubspotutk=332b46163c8eb42dd1fa5462a00979b9; messagesUtk=0e86f8ee0db949feba01f28a0d99ee3a; GCP_IAP_UID=112159048697629340533; _hjid=61e0b196-0f32-422b-aa3f-74b1abfb4400; __hstc=224837765.332b46163c8eb42dd1fa5462a00979b9.1615258559987.1616671012796.1626675898256.3; GCP_IAP_XSRF_NONCE_kQHe77uyvVB3R8Wrgf_qLA=1; GCP_IAAP_AUTH_TOKEN_5D62D4D9F950FF2D=eyJhbGciOiJSUzI1NiIsImtpZCI6IjBmY2MwMTRmMjI5MzRlNDc0ODBkYWYxMDdhMzQwYzIyYmQyNjJiNmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMzUwMzIxOTU1Njctb2Vkb2s1b2JhMmEzaXByN3ZidWhvMDJqOGowZW45cDQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxMzUwMzIxOTU1Njctb2Vkb2s1b2JhMmEzaXByN3ZidWhvMDJqOGowZW45cDQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTIxNTkwNDg2OTc2MjkzNDA1MzMiLCJoZCI6ImRpc3RpY2hhaW4uY29tIiwiZW1haWwiOiJ0dWFuQGRpc3RpY2hhaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiI4MFJDWk5fVk11UHFxVG16cGRubWJ3IiwiZ29vZ2xlIjp7ImdpYyI6IkFHT281MmdMMVo3VHptQVh5alRUcVR5LWo5dEp2ZDAtbzMycExiNWZEZWJweUxIcXV6b1YwMW1fdlNKWm00SS15eVhKN2xDYlNOTUZ6M1preTN2Ml9OcWdmZjZzY0ZSZWNETXZmZDNkRE5VSkhMSTNiQk83eldPNHFjU04tV0tPeEljQW1oOUMwRHc2SXhJRFR6c0ZLN0hMYmVYeUNwemZQR1l4bmpsdzZjZUhXbEF5LXNwOUExZmZJNWt5OTdrOUo1MTdkZHJPbm50S040MHl0c0JRam05NW5rU3FBS0dDIn0sImlhdCI6MTYyODUwMjI5MiwiZXhwIjoxNjI4NTA1ODkyfQ.0ZEG1E0hCjnOgg-WV04oUo-zsOmy1QKNthiy1UydYZYRaHN-TGvddhhN_2kckiUkiWD6dMa6n360tisruprVpfOCrL6ciTxK-SzmtFXKnGI_tjUo4DvJhAvUKijEFyebxdv_9Wz_ntdHz8ns9aHhpj8UpuPLnhZTqxJfRo4LcFjZqolZYPlj0iHBU3IZRUf2fn3TLbkxpqcRZ14fKb4ZmU29--t9o9Lrn-ZX_jNMxKmrVIVHAlJj8PqqlSsaS7JJPNTKNgRraf8CL6y3szzxLNBzB4QqBfAHBPBTnHMvbw8zS-BNCaFexK0utBLwI1gd8znu3bBbnXZWJsiosNaQ6Q";
+        proxy_hide_header Access-Control-Allow-Origin;
+        add_header Access-Control-Allow-Origin $http_origin;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+
+    }
+
+    location / {
+        proxy_pass http://host.docker.internal:3000;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }
+}
+
+server {
+    listen 5001 default_server;
+    server_name _;
+    server_name_in_redirect off;
+    access_log  /var/log/nginx/access.log;
+    error_log  /var/log/nginx/error.log debug;
+    location /admin {
+        proxy_pass https://admin-dev.distichain.com/admin;
+        proxy_set_header Origin https://admin-dev.distichain.com;
+        proxy_set_header Cookie "GCP_IAP_XSRF_NONCE_An78o1phwW2xILvjGK9SqQ=1; GCP_IAAP_AUTH_TOKEN_5D62D4D9F950FF2D=eyJhbGciOiJSUzI1NiIsImtpZCI6IjNkZjBhODMxZTA5M2ZhZTFlMjRkNzdkNDc4MzQ0MDVmOTVkMTdiNTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMzUwMzIxOTU1Njctb2Vkb2s1b2JhMmEzaXByN3ZidWhvMDJqOGowZW45cDQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxMzUwMzIxOTU1Njctb2Vkb2s1b2JhMmEzaXByN3ZidWhvMDJqOGowZW45cDQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTIxNTkwNDg2OTc2MjkzNDA1MzMiLCJoZCI6ImRpc3RpY2hhaW4uY29tIiwiZW1haWwiOiJ0dWFuQGRpc3RpY2hhaW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiI3YTFXMGJlYVFWeGxJQk1adFE4WDVnIiwiZ29vZ2xlIjp7ImdpYyI6IkFHT281MmlOSHl0VUloeHdvb0lMUTdRbGVLS0hOX1AycDhtc0o1Q1lDTzY0WUZNc2JFUENWTUplU25pNHA3X3Z5M3RxWmJ1QmZLYWNjYTZCZUlScW5nUlFWWmNTWExwRlRJMl91TG8tQlNwY1JJVTVUcllsNUZ0Rk9INml1MmxGWUQtWEZISHFha1dRek5pNVQ3WUE5SlowR1dSYzMyQy1SQU9CbXpIU2VlS2tDZE42TDAzOUU0Z283ZGlLY3l0a29QdU1RZ09mX1FsbFdXblZuVjExYW51WVRubXV1bk9lOWJwZF93In0sImlhdCI6MTYyNzM3Mzg0MCwiZXhwIjoxNjI3Mzc3NDQwfQ.lf8IApD2ugVvio0-jSrr5cLeqmBbWCZ6AeERYjXmDXu8FjBaobHWCFZUrNuIXNL_CruK7dnJQ1PbavCEW9luWbAZh2uQfsQwTn7rwvnPF0YAH5yvqLFTTw8TAnTA8SgdtSHXKM9R3ScIGgxXRbwtW8kVneMqkrob5OALmrkc84FZRD4D8jVhxcVHrNSTsT98ed0XyVtRIIggZvI19WlfTkumNFCiieAI2VsLUWOHI2O-8TmU2NIh0AmSdRHmP1HjM-IJ_ZADb4FEli3y4gm4mVCGaagsHmh6yNIWf4o1WNBbaSRw6stkXjBWHWeh8yXBiSqL6Gqsl5lVuuW6YhrSDw; GCP_IAP_UID=112159048697629340533";
+        proxy_hide_header Access-Control-Allow-Origin;
+        add_header Access-Control-Allow-Origin $http_origin;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+
+    }
+
+    location / {
+        proxy_pass http://host.docker.internal:3001;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }
+}
