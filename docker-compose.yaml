@@ -5,5 +5,9 @@ services:
     ports:
       - 5000:5000
       - 5001:5001
+      - 5002:5002
+    environment:
+      - HOST_NAME=https://dev.distichain.com
+      - COOKIE=GCP_IAP_UID=112159048697629340533; _hjid=7b7fad23-810b-4c1d-a8bf-3075f1765041; GCP_IAP_XSRF_NONCE__8Balbzpskt12oYmWctosw=1; GCP_IAAP_AUTH_TOKEN_5D62D4D9F950FF2D=eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc0MjE3YjhkYWRiYjM2NTc4MzU4MGY5ZTkyNDg3ZDcwMWNkMzhmZTYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMzUwMzIxOTU1Njctb2Vkb2s1b2JhMmEzaXByN3ZidWhvMDJqOGowZW45cDQuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxMzUwMzIxOTU1Njctb2Vkb2s1b2JhMmEzaXByN3ZidWhvMDJqOGowZW45cDQuYXBwcy5nb29nbGV1c2Vy…GVzc25oS05KaDRLd1ppNlRzUHJ1bHV5U2FjZXFsby1FTGlSbm9hd0tnIn0sImlhdCI6MTYzMTg2NjAyMCwiZXhwIjoxNjMxODY5NjIwfQ.mbYrcwe_2Xf1DA4GDF_RwtIvQ2SZfIeIdDerMEqduPzn3z-6hYrPi7veiKMeuziKNFM9DVB3UtG9JrVcGYGW603SRkwl8AfVHmgEWj3rK7maAHiJj0vdId26FndtzATZt5FMceO9jLtm8hPdOg1uYzAtFtWEXk6RAHKCgxlDWt8qTxsDPWB6ks8O81hKzaVf9imVAT82_kNc1cESae66r9SGnF0yVn3bCeFVKZcYb1QirXqLGh76eh4dSdTcZcuFbWnsDARaKFL9xp1ZF3fPgUkldqjfySi7nLMP5QV9igi0Yp9G05lc1mCd2-Fy7SPuPWW8NIs-qYeIBiK8wnJ4lw; _hjIncludedInPageviewSample=1; _hjAbsoluteSessionInProgress=0
     volumes:
       - ./default.conf.template:/etc/nginx/templates/default.conf.template
